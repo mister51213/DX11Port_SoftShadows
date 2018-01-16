@@ -6,8 +6,8 @@
 
 VerticalBlurShaderClass::VerticalBlurShaderClass()
 {
-	m_vertexShader = 0;
-	m_pixelShader = 0;
+	//m_vertexShader = 0;
+	//m_pixelShader = 0;
 	m_layout = 0;
 	m_sampleState = 0;
 	m_matrixBuffer = 0;
@@ -31,7 +31,9 @@ bool VerticalBlurShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
 
 
 	// Initialize the vertex and pixel shaders.
-	result = InitializeShader(device, hwnd, L"../Engine/verticalblur.vs", L"../Engine/verticalblur.ps");
+	//result = InitializeShader(device, hwnd, L"../Engine/verticalblur.vs", L"../Engine/verticalblur.ps");
+	result = InitializeShader(device, hwnd,L"verticalblur_vs.cso", L"verticalblur_ps.cso");
+
 	if(!result)
 	{
 		return false;
@@ -74,75 +76,76 @@ bool VerticalBlurShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, 
 {
 	HRESULT result;
 	ID3D10Blob* errorMessage;
-	ID3D10Blob* vertexShaderBuffer;
-	ID3D10Blob* pixelShaderBuffer;
+	//ID3D10Blob* vertexShaderBuffer;
+	//ID3D10Blob* pixelShaderBuffer;
 	D3D11_INPUT_ELEMENT_DESC polygonLayout[2];
 	unsigned int numElements;
     D3D11_SAMPLER_DESC samplerDesc;
 	D3D11_BUFFER_DESC matrixBufferDesc;
 	D3D11_BUFFER_DESC screenSizeBufferDesc;
 
+	CreateShaders(device, hwnd, vsFilename, psFilename);
 
-	// Initialize the pointers this function will use to null.
-	errorMessage = 0;
-	vertexShaderBuffer = 0;
-	pixelShaderBuffer = 0;
+	//// Initialize the pointers this function will use to null.
+	//errorMessage = 0;
+	//vertexShaderBuffer = 0;
+	//pixelShaderBuffer = 0;
 
-    // Compile the vertex shader code.
-	//result = D3DX11CompileFromFile(vsFilename, NULL, NULL, "VerticalBlurVertexShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, NULL, 
-	//							   &vertexShaderBuffer, &errorMessage, NULL);
-	result = D3DCompileFromFile(vsFilename, NULL, NULL, "VerticalBlurVertexShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS,
-		0, &vertexShaderBuffer, &errorMessage);
-	if(FAILED(result))
-	{
-		// If the shader failed to compile it should have writen something to the error message.
-		if(errorMessage)
-		{
-			OutputShaderErrorMessage(errorMessage, hwnd, vsFilename);
-		}
-		// If there was nothing in the error message then it simply could not find the shader file itself.
-		else
-		{
-			MessageBox(hwnd, vsFilename, L"Missing Shader File", MB_OK);
-		}
+ //   // Compile the vertex shader code.
+	////result = D3DX11CompileFromFile(vsFilename, NULL, NULL, "VerticalBlurVertexShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, NULL, 
+	////							   &vertexShaderBuffer, &errorMessage, NULL);
+	//result = D3DCompileFromFile(vsFilename, NULL, NULL, "VerticalBlurVertexShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS,
+	//	0, &vertexShaderBuffer, &errorMessage);
+	//if(FAILED(result))
+	//{
+	//	// If the shader failed to compile it should have writen something to the error message.
+	//	if(errorMessage)
+	//	{
+	//		OutputShaderErrorMessage(errorMessage, hwnd, vsFilename);
+	//	}
+	//	// If there was nothing in the error message then it simply could not find the shader file itself.
+	//	else
+	//	{
+	//		MessageBox(hwnd, vsFilename, L"Missing Shader File", MB_OK);
+	//	}
 
-		return false;
-	}
+	//	return false;
+	//}
 
-    // Compile the pixel shader code.
-	//result = D3DX11CompileFromFile(psFilename, NULL, NULL, "VerticalBlurPixelShader", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, NULL, 
-	//							   &pixelShaderBuffer, &errorMessage, NULL);
-	result = D3DCompileFromFile(psFilename, NULL, NULL, "VerticalBlurPixelShader", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS,
-		0, &pixelShaderBuffer, &errorMessage);
-	if(FAILED(result))
-	{
-		// If the shader failed to compile it should have writen something to the error message.
-		if(errorMessage)
-		{
-			OutputShaderErrorMessage(errorMessage, hwnd, psFilename);
-		}
-		// If there was  nothing in the error message then it simply could not find the file itself.
-		else
-		{
-			MessageBox(hwnd, psFilename, L"Missing Shader File", MB_OK);
-		}
+ //   // Compile the pixel shader code.
+	////result = D3DX11CompileFromFile(psFilename, NULL, NULL, "VerticalBlurPixelShader", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, NULL, 
+	////							   &pixelShaderBuffer, &errorMessage, NULL);
+	//result = D3DCompileFromFile(psFilename, NULL, NULL, "VerticalBlurPixelShader", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS,
+	//	0, &pixelShaderBuffer, &errorMessage);
+	//if(FAILED(result))
+	//{
+	//	// If the shader failed to compile it should have writen something to the error message.
+	//	if(errorMessage)
+	//	{
+	//		OutputShaderErrorMessage(errorMessage, hwnd, psFilename);
+	//	}
+	//	// If there was  nothing in the error message then it simply could not find the file itself.
+	//	else
+	//	{
+	//		MessageBox(hwnd, psFilename, L"Missing Shader File", MB_OK);
+	//	}
 
-		return false;
-	}
+	//	return false;
+	//}
 
-    // Create the vertex shader from the buffer.
-    result = device->CreateVertexShader(vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(), NULL, &m_vertexShader);
-	if(FAILED(result))
-	{
-		return false;
-	}
+ //   // Create the vertex shader from the buffer.
+ //   result = device->CreateVertexShader(vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(), NULL, &m_vertexShader);
+	//if(FAILED(result))
+	//{
+	//	return false;
+	//}
 
-    // Create the pixel shader from the buffer.
-    result = device->CreatePixelShader(pixelShaderBuffer->GetBufferPointer(), pixelShaderBuffer->GetBufferSize(), NULL, &m_pixelShader);
-	if(FAILED(result))
-	{
-		return false;
-	}
+ //   // Create the pixel shader from the buffer.
+ //   result = device->CreatePixelShader(pixelShaderBuffer->GetBufferPointer(), pixelShaderBuffer->GetBufferSize(), NULL, &m_pixelShader);
+	//if(FAILED(result))
+	//{
+	//	return false;
+	//}
 
 	// Create the vertex input layout description.
 	// This setup needs to match the VertexType stucture in the ModelClass and in the shader.
@@ -166,19 +169,19 @@ bool VerticalBlurShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, 
     numElements = sizeof(polygonLayout) / sizeof(polygonLayout[0]);
 
 	// Create the vertex input layout.
-	result = device->CreateInputLayout(polygonLayout, numElements, vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(), 
+	result = device->CreateInputLayout(polygonLayout, numElements, _vertexShaderBuffer->GetBufferPointer(), _vertexShaderBuffer->GetBufferSize(), 
 		                               &m_layout);
 	if(FAILED(result))
 	{
 		return false;
 	}
 
-	// Release the vertex shader buffer and pixel shader buffer since they are no longer needed.
-	vertexShaderBuffer->Release();
-	vertexShaderBuffer = 0;
+	//// Release the vertex shader buffer and pixel shader buffer since they are no longer needed.
+	//vertexShaderBuffer->Release();
+	//vertexShaderBuffer = 0;
 
-	pixelShaderBuffer->Release();
-	pixelShaderBuffer = 0;
+	//pixelShaderBuffer->Release();
+	//pixelShaderBuffer = 0;
 
 	// Create a texture sampler state description.
     samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
@@ -266,19 +269,19 @@ void VerticalBlurShaderClass::ShutdownShader()
 		m_layout = 0;
 	}
 
-	// Release the pixel shader.
-	if(m_pixelShader)
-	{
-		m_pixelShader->Release();
-		m_pixelShader = 0;
-	}
+	//// Release the pixel shader.
+	//if(m_pixelShader)
+	//{
+	//	m_pixelShader->Release();
+	//	m_pixelShader = 0;
+	//}
 
-	// Release the vertex shader.
-	if(m_vertexShader)
-	{
-		m_vertexShader->Release();
-		m_vertexShader = 0;
-	}
+	//// Release the vertex shader.
+	//if(m_vertexShader)
+	//{
+	//	m_vertexShader->Release();
+	//	m_vertexShader = 0;
+	//}
 
 	return;
 }
@@ -398,8 +401,8 @@ void VerticalBlurShaderClass::RenderShader(ID3D11DeviceContext* deviceContext, i
 	deviceContext->IASetInputLayout(m_layout);
 
     // Set the vertex and pixel shaders that will be used to render this triangle.
-    deviceContext->VSSetShader(m_vertexShader, NULL, 0);
-    deviceContext->PSSetShader(m_pixelShader, NULL, 0);
+    deviceContext->VSSetShader(m_vertexShader.Get(), NULL, 0);
+    deviceContext->PSSetShader(m_pixelShader.Get(), NULL, 0);
 
 	// Set the sampler state in the pixel shader.
 	deviceContext->PSSetSamplers(0, 1, &m_sampleState);

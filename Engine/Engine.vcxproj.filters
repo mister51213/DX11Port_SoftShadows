@@ -13,21 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\ShaderClasses">
+      <UniqueIdentifier>{4059eed7-b5be-415b-9f50-39639bf013fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ShaderClass">
+      <UniqueIdentifier>{7fea7fb8-57db-4dc6-8d3a-1d20a8373135}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="depth.ps" />
-    <None Include="depth.vs" />
-    <None Include="horizontalblur.ps" />
-    <None Include="horizontalblur.vs" />
-    <None Include="shadow.ps" />
-    <None Include="shadow.vs" />
-    <None Include="softshadow.ps" />
-    <None Include="softshadow.vs" />
-    <None Include="texture.ps" />
-    <None Include="texture.vs" />
-    <None Include="verticalblur.ps" />
-    <None Include="verticalblur.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cameraclass.cpp">
@@ -36,13 +30,7 @@
     <ClCompile Include="d3dclass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="depthshaderclass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="graphicsclass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="horizontalblurshaderclass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="inputclass.cpp">
@@ -66,26 +54,35 @@
     <ClCompile Include="rendertextureclass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="shadowshaderclass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="softshadowshaderclass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="systemclass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="textureclass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="textureshaderclass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="timerclass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="depthshaderclass.cpp">
+      <Filter>Source Files\ShaderClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="horizontalblurshaderclass.cpp">
+      <Filter>Source Files\ShaderClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="shadowshaderclass.cpp">
+      <Filter>Source Files\ShaderClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="softshadowshaderclass.cpp">
+      <Filter>Source Files\ShaderClasses</Filter>
+    </ClCompile>
     <ClCompile Include="verticalblurshaderclass.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ShaderClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="textureshaderclass.cpp">
+      <Filter>Source Files\ShaderClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderClass.cpp">
+      <Filter>Source Files\ShaderClasses</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -95,13 +92,7 @@
     <ClInclude Include="d3dclass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="depthshaderclass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="graphicsclass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="horizontalblurshaderclass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inputclass.h">
@@ -122,26 +113,49 @@
     <ClInclude Include="rendertextureclass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="shadowshaderclass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="softshadowshaderclass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="systemclass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="textureclass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="textureshaderclass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="timerclass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="verticalblurshaderclass.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="depthshaderclass.h">
+      <Filter>Header Files\ShaderClass</Filter>
     </ClInclude>
+    <ClInclude Include="horizontalblurshaderclass.h">
+      <Filter>Header Files\ShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="verticalblurshaderclass.h">
+      <Filter>Header Files\ShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="textureshaderclass.h">
+      <Filter>Header Files\ShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="softshadowshaderclass.h">
+      <Filter>Header Files\ShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="shadowshaderclass.h">
+      <Filter>Header Files\ShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderClass.h">
+      <Filter>Header Files\ShaderClass</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="depth_ps.hlsl" />
+    <FxCompile Include="depth_vs.hlsl" />
+    <FxCompile Include="horizontalblur_ps.hlsl" />
+    <FxCompile Include="horizontalblur_vs.hlsl" />
+    <FxCompile Include="shadow_ps.hlsl" />
+    <FxCompile Include="shadow_vs.hlsl" />
+    <FxCompile Include="softshadow_ps.hlsl" />
+    <FxCompile Include="softshadow_vs.hlsl" />
+    <FxCompile Include="texture_ps.hlsl" />
+    <FxCompile Include="texture_vs.hlsl" />
+    <FxCompile Include="verticalblur_ps.hlsl" />
+    <FxCompile Include="verticalblur_vs.hlsl" />
   </ItemGroup>
 </Project>

@@ -15,6 +15,8 @@
 #include <DirectXMath.h>
 //#include <d3dx11async.h>
 #include <fstream>
+#include "ShaderClass.h"
+
 using namespace std;
 using namespace DirectX;
 
@@ -22,7 +24,7 @@ using namespace DirectX;
 ////////////////////////////////////////////////////////////////////////////////
 // Class name: HorizontalBlurShaderClass
 ////////////////////////////////////////////////////////////////////////////////
-class HorizontalBlurShaderClass
+class HorizontalBlurShaderClass : public ShaderClass
 {
 private:
 	struct MatrixBufferType
@@ -56,8 +58,8 @@ private:
 	void RenderShader(ID3D11DeviceContext*, int);
 
 private:
-	ID3D11VertexShader* m_vertexShader;
-	ID3D11PixelShader* m_pixelShader;
+	//ID3D11VertexShader* m_vertexShader;
+	//ID3D11PixelShader* m_pixelShader;
 	ID3D11InputLayout* m_layout;
 	ID3D11SamplerState* m_sampleState;
 	ID3D11Buffer* m_matrixBuffer;
