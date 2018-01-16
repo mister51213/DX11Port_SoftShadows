@@ -48,12 +48,16 @@ public:
 	bool Frame(float, float, float, float, float, float);
 
 private:
-	bool RenderSceneToTexture();
+	bool RenderShadowsToTexture();
 	bool RenderBlackAndWhiteShadows();
-	bool DownSampleTexture();
-	bool RenderHorizontalBlurToTexture();
-	bool RenderVerticalBlurToTexture();
-	bool UpSampleTexture();
+
+	bool DownSampleTexture(XMMATRIX worldMatrix, XMMATRIX baseViewMatrix);
+	bool RenderHorizontalBlurToTexture(XMMATRIX worldMatrix, XMMATRIX baseViewMatrix);
+	bool RenderVerticalBlurToTexture(XMMATRIX worldMatrix, XMMATRIX baseViewMatrix);
+	bool UpSampleTexture(XMMATRIX worldMatrix, XMMATRIX baseViewMatrix);
+
+	bool ApplyBlurToTexture();
+
 	bool Render();
 
 private:
@@ -61,14 +65,19 @@ private:
 	CameraClass* m_Camera;
 	ModelClass *m_CubeModel, *m_GroundModel, *m_SphereModel;
 	LightClass* m_Light;
-	RenderTextureClass *m_RenderTexture, *m_BlackWhiteRenderTexture, *m_DownSampleTexure;
-	RenderTextureClass *m_HorizontalBlurTexture, *m_VerticalBlurTexture, *m_UpSampleTexure;
+	
+	TextureShaderClass* m_TextureShader;
 	DepthShaderClass* m_DepthShader;
 	ShadowShaderClass* m_ShadowShader;
+
+	// NEW CLASSES
+	RenderTextureClass *m_RenderTexture, *m_BlackWhiteRenderTexture, *m_DownSampleTexure;
+	RenderTextureClass *m_HorizontalBlurTexture, *m_VerticalBlurTexture, *m_UpSampleTexure;
+
 	OrthoWindowClass *m_SmallWindow, *m_FullScreenWindow;
-	TextureShaderClass* m_TextureShader;
 	HorizontalBlurShaderClass* m_HorizontalBlurShader;
 	VerticalBlurShaderClass* m_VerticalBlurShader;
+
 	SoftShadowShaderClass* m_SoftShadowShader;
 };
 

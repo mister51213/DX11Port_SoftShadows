@@ -551,7 +551,7 @@ bool GraphicsClass::Frame(float posX, float posY, float posZ, float rotX, float 
 }
 
 
-bool GraphicsClass::RenderSceneToTexture()
+bool GraphicsClass::RenderShadowsToTexture()
 {
 	XMMATRIX worldMatrix, lightViewMatrix, lightProjectionMatrix, translateMatrix;
 	float posX, posY, posZ;
@@ -717,9 +717,9 @@ bool GraphicsClass::RenderBlackAndWhiteShadows()
 }
 
 
-bool GraphicsClass::DownSampleTexture()
+bool GraphicsClass::DownSampleTexture(XMMATRIX worldMatrix, XMMATRIX baseViewMatrix)
 {
-	XMMATRIX worldMatrix, baseViewMatrix, orthoMatrix;
+	XMMATRIX /*worldMatrix, baseViewMatrix, */orthoMatrix;
 	bool result;
 
 
@@ -730,17 +730,17 @@ bool GraphicsClass::DownSampleTexture()
 	m_DownSampleTexure->ClearRenderTarget(m_D3D->GetDeviceContext(), 0.0f, 0.0f, 0.0f, 1.0f);
 
 	// Generate the view matrix based on the camera's position.
-	m_Camera->Render();
+	//m_Camera->Render();
 
 	// Get the world and view matrices from the camera and d3d objects.
-	m_D3D->GetWorldMatrix(worldMatrix);
-	m_Camera->GetBaseViewMatrix(baseViewMatrix);
+	//m_D3D->GetWorldMatrix(worldMatrix);
+	//m_Camera->GetBaseViewMatrix(baseViewMatrix);
 	
 	// Get the ortho matrix from the render to texture since texture has different dimensions being that it is smaller.
 	m_DownSampleTexure->GetOrthoMatrix(orthoMatrix);
 
 	// Turn off the Z buffer to begin all 2D rendering.
-	m_D3D->TurnZBufferOff();
+	//m_D3D->TurnZBufferOff();
 
 	// Put the small ortho window vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	m_SmallWindow->Render(m_D3D->GetDeviceContext());
@@ -754,21 +754,21 @@ bool GraphicsClass::DownSampleTexture()
 	}
 
 	// Turn the Z buffer back on now that all 2D rendering has completed.
-	m_D3D->TurnZBufferOn();
+	//m_D3D->TurnZBufferOn();
 	
 	// Reset the render target back to the original back buffer and not the render to texture anymore.
-	m_D3D->SetBackBufferRenderTarget();
+	//m_D3D->SetBackBufferRenderTarget();
 
 	// Reset the viewport back to the original.
-	m_D3D->ResetViewport();
+	//m_D3D->ResetViewport();
 
 	return true;
 }
 
 
-bool GraphicsClass::RenderHorizontalBlurToTexture()
+bool GraphicsClass::RenderHorizontalBlurToTexture(XMMATRIX worldMatrix, XMMATRIX baseViewMatrix)
 {
-	XMMATRIX worldMatrix, baseViewMatrix, orthoMatrix;
+	XMMATRIX /*worldMatrix, baseViewMatrix,*/ orthoMatrix;
 	float screenSizeX;
 	bool result;
 
@@ -780,20 +780,20 @@ bool GraphicsClass::RenderHorizontalBlurToTexture()
 	m_HorizontalBlurTexture->SetRenderTarget(m_D3D->GetDeviceContext());
 
 	// Clear the render to texture.
-	m_HorizontalBlurTexture->ClearRenderTarget(m_D3D->GetDeviceContext(), 0.0f, 0.0f, 0.0f, 1.0f);
+	//m_HorizontalBlurTexture->ClearRenderTarget(m_D3D->GetDeviceContext(), 0.0f, 0.0f, 0.0f, 1.0f);
 
 	// Generate the view matrix based on the camera's position.
-	m_Camera->Render();
+	//m_Camera->Render();
 
 	// Get the world and view matrices from the camera and d3d objects.
-	m_Camera->GetBaseViewMatrix(baseViewMatrix);
-	m_D3D->GetWorldMatrix(worldMatrix);
+	//m_Camera->GetBaseViewMatrix(baseViewMatrix);
+	//m_D3D->GetWorldMatrix(worldMatrix);
 
 	// Get the ortho matrix from the render to texture since texture has different dimensions.
 	m_HorizontalBlurTexture->GetOrthoMatrix(orthoMatrix);
 
 	// Turn off the Z buffer to begin all 2D rendering.
-	m_D3D->TurnZBufferOff();
+	//m_D3D->TurnZBufferOff();
 
 	// Put the small ortho window vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	m_SmallWindow->Render(m_D3D->GetDeviceContext());
@@ -807,21 +807,21 @@ bool GraphicsClass::RenderHorizontalBlurToTexture()
 	}
 
 	// Turn the Z buffer back on now that all 2D rendering has completed.
-	m_D3D->TurnZBufferOn();
+	//m_D3D->TurnZBufferOn();
 
 	// Reset the render target back to the original back buffer and not the render to texture anymore.
-	m_D3D->SetBackBufferRenderTarget();
+	//m_D3D->SetBackBufferRenderTarget();
 
 	// Reset the viewport back to the original.
-	m_D3D->ResetViewport();
+	//m_D3D->ResetViewport();
 	
 	return true;
 }
 
 
-bool GraphicsClass::RenderVerticalBlurToTexture()
+bool GraphicsClass::RenderVerticalBlurToTexture(XMMATRIX worldMatrix, XMMATRIX baseViewMatrix)
 {
-	XMMATRIX worldMatrix, baseViewMatrix, orthoMatrix;
+	XMMATRIX /*worldMatrix, baseViewMatrix, */orthoMatrix;
 	float screenSizeY;
 	bool result;
 
@@ -833,20 +833,20 @@ bool GraphicsClass::RenderVerticalBlurToTexture()
 	m_VerticalBlurTexture->SetRenderTarget(m_D3D->GetDeviceContext());
 
 	// Clear the render to texture.
-	m_VerticalBlurTexture->ClearRenderTarget(m_D3D->GetDeviceContext(), 0.0f, 0.0f, 0.0f, 1.0f);
+	//m_VerticalBlurTexture->ClearRenderTarget(m_D3D->GetDeviceContext(), 0.0f, 0.0f, 0.0f, 1.0f);
 
 	// Generate the view matrix based on the camera's position.
-	m_Camera->Render();
+	//m_Camera->Render();
 
 	// Get the world and view matrices from the camera and d3d objects.
-	m_Camera->GetBaseViewMatrix(baseViewMatrix);
-	m_D3D->GetWorldMatrix(worldMatrix);
+	//m_Camera->GetBaseViewMatrix(baseViewMatrix);
+	//m_D3D->GetWorldMatrix(worldMatrix);
 
 	// Get the ortho matrix from the render to texture since texture has different dimensions.
 	m_VerticalBlurTexture->GetOrthoMatrix(orthoMatrix);
 
 	// Turn off the Z buffer to begin all 2D rendering.
-	m_D3D->TurnZBufferOff();
+	//m_D3D->TurnZBufferOff();
 
 	// Put the small ortho window vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	m_SmallWindow->Render(m_D3D->GetDeviceContext());
@@ -860,21 +860,21 @@ bool GraphicsClass::RenderVerticalBlurToTexture()
 	}
 
 	// Turn the Z buffer back on now that all 2D rendering has completed.
-	m_D3D->TurnZBufferOn();
+	//m_D3D->TurnZBufferOn();
 
 	// Reset the render target back to the original back buffer and not the render to texture anymore.
-	m_D3D->SetBackBufferRenderTarget();
+	//m_D3D->SetBackBufferRenderTarget();
 
 	// Reset the viewport back to the original.
-	m_D3D->ResetViewport();
+	//m_D3D->ResetViewport();
 	
 	return true;
 }
 
 
-bool GraphicsClass::UpSampleTexture()
+bool GraphicsClass::UpSampleTexture(XMMATRIX worldMatrix, XMMATRIX baseViewMatrix)
 {
-	XMMATRIX worldMatrix, baseViewMatrix, orthoMatrix;
+	XMMATRIX /*worldMatrix, baseViewMatrix, */orthoMatrix;
 	bool result;
 
 
@@ -882,20 +882,20 @@ bool GraphicsClass::UpSampleTexture()
 	m_UpSampleTexure->SetRenderTarget(m_D3D->GetDeviceContext());
 
 	// Clear the render to texture.
-	m_UpSampleTexure->ClearRenderTarget(m_D3D->GetDeviceContext(), 0.0f, 0.0f, 0.0f, 1.0f);
+	//m_UpSampleTexure->ClearRenderTarget(m_D3D->GetDeviceContext(), 0.0f, 0.0f, 0.0f, 1.0f);
 
 	// Generate the view matrix based on the camera's position.
-	m_Camera->Render();
+	//m_Camera->Render();
 
 	// Get the world and view matrices from the camera and d3d objects.
-	m_Camera->GetBaseViewMatrix(baseViewMatrix);
-	m_D3D->GetWorldMatrix(worldMatrix);
+	//m_Camera->GetBaseViewMatrix(baseViewMatrix);
+	//m_D3D->GetWorldMatrix(worldMatrix);
 
 	// Get the ortho matrix from the render to texture since texture has different dimensions.
 	m_UpSampleTexure->GetOrthoMatrix(orthoMatrix);
 
 	// Turn off the Z buffer to begin all 2D rendering.
-	m_D3D->TurnZBufferOff();
+	//m_D3D->TurnZBufferOff();
 
 	// Put the full screen ortho window vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	m_FullScreenWindow->Render(m_D3D->GetDeviceContext());
@@ -909,17 +909,16 @@ bool GraphicsClass::UpSampleTexture()
 	}
 
 	// Turn the Z buffer back on now that all 2D rendering has completed.
-	m_D3D->TurnZBufferOn();
+	//m_D3D->TurnZBufferOn();
 	
 	// Reset the render target back to the original back buffer and not the render to texture anymore.
-	m_D3D->SetBackBufferRenderTarget();
+	//m_D3D->SetBackBufferRenderTarget();
 
 	// Reset the viewport back to the original.
-	m_D3D->ResetViewport();
+	//m_D3D->ResetViewport();
 
 	return true;
 }
-
 
 bool GraphicsClass::Render()
 {
@@ -929,7 +928,7 @@ bool GraphicsClass::Render()
 
 
 	// First render the scene to a texture.
-	result = RenderSceneToTexture();
+	result = RenderShadowsToTexture();
 	if(!result)
 	{
 		return false;
@@ -942,33 +941,32 @@ bool GraphicsClass::Render()
 		return false;
 	}
 
-	// Then down sample the black and white scene texture.
-	result = DownSampleTexture();
-	if(!result)
-	{
-		return false;
-	}
+	ApplyBlurToTexture();
 
-	// Perform a horizontal blur on the down sampled texture.
-	result = RenderHorizontalBlurToTexture();
-	if(!result)
-	{
-		return false;
-	}
-
-	// Now perform a vertical blur on the texture.
-	result = RenderVerticalBlurToTexture();
-	if(!result)
-	{
-		return false;
-	}
-
-	// Finally up sample the final blurred render to texture that can now be used in the soft shadow shader.
-	result = UpSampleTexture();
-	if(!result)
-	{
-		return false;
-	}
+	//// Then down sample the black and white scene texture.
+	//result = DownSampleTexture();
+	//if(!result)
+	//{
+	//	return false;
+	//}
+	//// Perform a horizontal blur on the down sampled texture.
+	//result = RenderHorizontalBlurToTexture();
+	//if(!result)
+	//{
+	//	return false;
+	//}
+	//// Now perform a vertical blur on the texture.
+	//result = RenderVerticalBlurToTexture();
+	//if(!result)
+	//{
+	//	return false;
+	//}
+	//// Finally up sample the final blurred render to texture that can now be used in the soft shadow shader.
+	//result = UpSampleTexture();
+	//if(!result)
+	//{
+	//	return false;
+	//}
 
 	// Clear the buffers to begin the scene.
 	m_D3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
@@ -1034,6 +1032,51 @@ bool GraphicsClass::Render()
 
 	// Present the rendered scene to the screen.
 	m_D3D->EndScene();
+
+	return true;
+}
+
+bool GraphicsClass::ApplyBlurToTexture()
+{
+	XMMATRIX worldMatrix, baseViewMatrix;
+
+	HRESULT result;
+	m_Camera->Render();
+	m_D3D->TurnZBufferOff();
+	m_D3D->GetWorldMatrix(worldMatrix);
+	m_Camera->GetBaseViewMatrix(baseViewMatrix);
+
+	// Then down sample the black and white scene texture.
+	result = DownSampleTexture(worldMatrix, baseViewMatrix);
+	if (!result)
+	{
+		return false;
+	}
+
+	// Perform a horizontal blur on the down sampled texture.
+	result = RenderHorizontalBlurToTexture(worldMatrix, baseViewMatrix);
+	if (!result)
+	{
+		return false;
+	}
+
+	// Now perform a vertical blur on the texture.
+	result = RenderVerticalBlurToTexture(worldMatrix, baseViewMatrix);
+	if (!result)
+	{
+		return false;
+	}
+
+	// Finally up sample the final blurred render to texture that can now be used in the soft shadow shader.
+	result = UpSampleTexture(worldMatrix, baseViewMatrix);
+	if (!result)
+	{
+		return false;
+	}
+
+	m_D3D->TurnZBufferOn();
+	m_D3D->SetBackBufferRenderTarget();
+	m_D3D->ResetViewport();
 
 	return true;
 }
