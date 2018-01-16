@@ -51,12 +51,12 @@ private:
 	bool RenderShadowsToTexture();
 	bool RenderBlackAndWhiteShadows();
 
-	bool DownSampleTexture(XMMATRIX worldMatrix, XMMATRIX baseViewMatrix);
-	bool RenderHorizontalBlurToTexture(XMMATRIX worldMatrix, XMMATRIX baseViewMatrix);
-	bool RenderVerticalBlurToTexture(XMMATRIX worldMatrix, XMMATRIX baseViewMatrix);
-	bool UpSampleTexture(XMMATRIX worldMatrix, XMMATRIX baseViewMatrix);
+	//bool DownSampleTexture(XMMATRIX worldMatrix, XMMATRIX baseViewMatrix);
+	//bool RenderHorizontalBlurToTexture(XMMATRIX worldMatrix, XMMATRIX baseViewMatrix);
+	//bool RenderVerticalBlurToTexture(XMMATRIX worldMatrix, XMMATRIX baseViewMatrix);
+	//bool UpSampleTexture(XMMATRIX worldMatrix, XMMATRIX baseViewMatrix);
 
-	bool ApplyBlurToTexture();
+	ID3D11ShaderResourceView* ApplyBlur(ID3D11ShaderResourceView* viewToBlur, RenderTextureClass* outputRenderTarget);
 
 	bool Render();
 
@@ -73,6 +73,8 @@ private:
 	// NEW CLASSES
 	RenderTextureClass *m_RenderTexture, *m_BlackWhiteRenderTexture, *m_DownSampleTexure;
 	RenderTextureClass *m_HorizontalBlurTexture, *m_VerticalBlurTexture, *m_UpSampleTexure;
+	//TEST
+	RenderTextureClass *_BlurredScene;
 
 	OrthoWindowClass *m_SmallWindow, *m_FullScreenWindow;
 	HorizontalBlurShaderClass* m_HorizontalBlurShader;
