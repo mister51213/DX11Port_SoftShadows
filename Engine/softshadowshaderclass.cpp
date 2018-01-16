@@ -422,6 +422,8 @@ bool SoftShadowShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceConte
 	// Set shader texture resource in the pixel shader.
 	deviceContext->PSSetShaderResources(0, 1, &texture);
 	deviceContext->PSSetShaderResources(1, 1, &shadowTexture);
+	//deviceContext->PSSetShaderResources(0, 1, &shadowTexture);
+	//deviceContext->PSSetShaderResources(1, 1, &texture);
 
 	// Lock the light constant buffer so it can be written to.
 	result = deviceContext->Map(m_lightBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);

@@ -293,7 +293,7 @@ void CameraClass::RenderBaseViewMatrix()
 
 	// Create the base view matrix from the three vectors.
 	//XMMATRIXLookAtLH(&m_baseViewMatrix, &position, &lookAt, &up);
-	m_viewMatrix = DirectX::XMMatrixLookAtLH(XMLoadFloat3(&position), XMLoadFloat3(&lookAt), XMLoadFloat3(&up));
+	m_baseViewMatrix = DirectX::XMMatrixLookAtLH(XMLoadFloat3(&position), XMLoadFloat3(&lookAt), XMLoadFloat3(&up));
 
 	return;
 }
