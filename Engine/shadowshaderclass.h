@@ -13,7 +13,6 @@
 #include <d3dcompiler.h>
 #include <d3d11.h>
 #include <DirectXMath.h>
-//#include <d3dx11async.h>
 #include <fstream>
 #include "ShaderClass.h"
 
@@ -34,12 +33,16 @@ private:
 		XMMATRIX projection;
 		XMMATRIX lightView;
 		XMMATRIX lightProjection;
+		XMMATRIX lightView2;
+		XMMATRIX lightProjection2;
 	};
 
 	struct LightBufferType2
 	{
 		XMFLOAT3 lightPosition;
 		float padding;
+		XMFLOAT3 lightPosition2;
+		float padding2;
 	};
 
 public:
@@ -48,20 +51,22 @@ public:
 	~ShadowShaderClass();
 
 	bool Initialize(ID3D11Device*, HWND);
-	void Shutdown();
-	bool Render(ID3D11DeviceContext*, int, XMMATRIX, XMMATRIX, XMMATRIX, XMMATRIX, XMMATRIX, ID3D11ShaderResourceView*, XMFLOAT3);
+	bool Render(ID3D11DeviceContext* deviceContext, int indexCount, XMMATRIX worldMatrix, XMMATRIX viewMatrix,
+		XMMATRIX projectionMatrix, XMMATRIX lightViewMatrix, XMMATRIX lightProjectionMatrix,
+		XMMATRIX lightViewMatrix2, XMMATRIX lightProjectionMatrix2,
+		ID3D11ShaderResourceView* depthMapTexture, ID3D11ShaderResourceView* depthMapTexture2, XMFLOAT3 lightPosition, XMFLOAT3 lightPosition2);
 
 private:
 	bool InitializeShader(ID3D11Device*, HWND, WCHAR*, WCHAR*);
-	void ShutdownShader();
 	void OutputShaderErrorMessage(ID3D10Blob*, HWND, WCHAR*);
 
-	bool SetShaderParameters(ID3D11DeviceContext*, XMMATRIX, XMMATRIX, XMMATRIX, XMMATRIX, XMMATRIX, ID3D11ShaderResourceView*, XMFLOAT3);
-	void RenderShader(ID3D11DeviceContext*, int);
+	bool SetShaderParameters(ID3D11DeviceContext* deviceContext, XMMATRIX worldMatrix, XMMATRIX viewMatrix,	XMMATRIX projectionMatrix, 
+		XMMATRIX lightViewMatrix, XMMATRIX lightProjectionMatrix, XMMATRIX lightViewMatrix2, XMMATRIX lightProjectionMatrix2,
+		ID3D11ShaderResourceView* depthMapTexture, ID3D11ShaderResourceView* depthMapTexture2, XMFLOAT3 lightPosition, XMFLOAT3 lightPosition2);
+
+	void RenderShader(ID3D11DeviceContext* deviceContext, int indexCount);
 
 private:
-	//ID3D11VertexShader* m_vertexShader;
-	//ID3D11PixelShader* m_pixelShader;
 	ID3D11InputLayout* m_layout;
 	ID3D11SamplerState* m_sampleStateClamp;
 	ID3D11Buffer* m_matrixBuffer;

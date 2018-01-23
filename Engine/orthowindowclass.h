@@ -36,10 +36,11 @@ public:
 
 	int GetIndexCount();
 
+	void RenderBuffers(ID3D11DeviceContext*);
+
 private:
 	bool InitializeBuffers(ID3D11Device*, int, int);
 	void ShutdownBuffers();
-	void RenderBuffers(ID3D11DeviceContext*);
 
 private:
 	ID3D11Buffer *m_vertexBuffer, *m_indexBuffer;

@@ -44,19 +44,12 @@ public:
 	~GraphicsClass();
 
 	bool Initialize(int, int, HWND);
-	void Shutdown();
 	bool Frame(float, float, float, float, float, float);
 
 private:
-	bool RenderShadowsToTexture();
-	bool RenderBlackAndWhiteShadows();
-
-	//bool DownSampleTexture(XMMATRIX worldMatrix, XMMATRIX baseViewMatrix);
-	//bool RenderHorizontalBlurToTexture(XMMATRIX worldMatrix, XMMATRIX baseViewMatrix);
-	//bool RenderVerticalBlurToTexture(XMMATRIX worldMatrix, XMMATRIX baseViewMatrix);
-	//bool UpSampleTexture(XMMATRIX worldMatrix, XMMATRIX baseViewMatrix);
-
 	ID3D11ShaderResourceView* ApplyBlur(ID3D11ShaderResourceView* viewToBlur, RenderTextureClass* outputRenderTarget);
+
+	void RenderShadows();
 
 	bool Render();
 
@@ -64,22 +57,20 @@ private:
 	D3DClass* m_D3D;
 	CameraClass* m_Camera;
 	ModelClass *m_CubeModel, *m_GroundModel, *m_SphereModel;
-	LightClass* m_Light;
+	LightClass* m_Light1;
+	LightClass* m_Light2;
+	const int NUM_LIGHTS = 2;
 	
 	TextureShaderClass* m_TextureShader;
 	DepthShaderClass* m_DepthShader;
 	ShadowShaderClass* m_ShadowShader;
 
-	// NEW CLASSES
-	RenderTextureClass *m_RenderTexture, *m_BlackWhiteRenderTexture, *m_DownSampleTexure;
-	RenderTextureClass *m_HorizontalBlurTexture, *m_VerticalBlurTexture, *m_UpSampleTexure;
-	//TEST
-	RenderTextureClass *_BlurredScene;
+	RenderTextureClass *m_ShadowTexture1, *m_ShadowTexture2, *m_BlackWhiteRenderTexture1;// , *m_BlackWhiteRenderTexture2;
+	RenderTextureClass *m_DownSampleTexure, *m_HorizontalBlurTexture, *m_VerticalBlurTexture, *m_UpSampleTexure;
 
 	OrthoWindowClass *m_SmallWindow, *m_FullScreenWindow;
 	HorizontalBlurShaderClass* m_HorizontalBlurShader;
 	VerticalBlurShaderClass* m_VerticalBlurShader;
-
 	SoftShadowShaderClass* m_SoftShadowShader;
 };
 

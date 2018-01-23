@@ -136,6 +136,10 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">HorizontalBlurVertexShader</EntryPointName>
     </FxCompile>
+    <None Include="blur_ps.hlsli">
+      <FileType>Document</FileType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </None>
     <None Include="packages.config" />
     <FxCompile Include="shadow_ps.hlsl">
       <FileType>Document</FileType>
